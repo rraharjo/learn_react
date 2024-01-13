@@ -1,6 +1,6 @@
 
 function DisplayData(props){
-    const items = props.data["items"];
+    const items = props.item;
     return(
         <div>
             {items.map((item) => {

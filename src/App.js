@@ -4,32 +4,10 @@ import SearchBar from "./SearchBar.js";
 import ItemBar from "./AddItemBar.js";
 import DisplayData from './DataDisplay.js';
 
-
-/*function InpTest(){
-  const [text, setText] = useState("");
-  const [msg, setMsg] = useState("");
-
-  function UpdateText(param){
-    setText(param);
-  }
-
-  const UpdateText = (param) => {
-    setText(param);
-  }
-
-  return(
-    <div>
-      <input type='text' id="myFInp" onChange={(e) => UpdateText(e.target.value)}/>
-      <button onClick={() => setMsg(text)}>show</button>
-      <h2>{msg}</h2>
-    </div>
-  )
-}*/
-
 function App() {
   const [filter, setFilters] = useState({});
   const [data, setData] = useState({number: 0, items: []})
-  //item props: name, price -> numgit, type, brand
+  //item props: name, price -> num, type, brand
 
   const updateFilters = (searchParams) => {
     setFilters(searchParams);
@@ -41,13 +19,13 @@ function App() {
     item.id = tempItems.length;
     tempItems.push(item);
     setData({number: tempNumber, items: tempItems});
-    console.log(data);
+    //console.log(data);
   }
   return (
     <div className='App'>
-      <SearchBar updateState = {updateFilters}/>
+      <SearchBar updateState = {updateFilters} data = {data}/>
       <ItemBar addItem = {addData}/>
-      <DisplayData data = {data}/>
+      <DisplayData item = {data["items"]}/>
     </div>
   );
 }
