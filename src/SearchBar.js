@@ -2,15 +2,15 @@ import {useState} from "react";
 
 function SearchBar(props){
     const [name, setName] = useState("");
-    const [dispName, setDispName] = useState("NaN");
+    const [dispName, setDispName] = useState(name);
     const [dispPrice, setDispPrice] = useState(0);
     const [dispType, setDispType] = useState("NaN");
     const [dispBrand, setDispBrand] = useState("NaN");
 
     const onButtonPressed = () => {
-        const items = props.data["items"];
+        const items = props.data["items"];//is an array
         let found = false;
-        for (let index = 0; index < items.length; index++) {
+        for (let index = 0; index < items.length && !found; index++) {
             const element = items[index];
             if (element.name === name){
                 setDispName(element.name);
@@ -18,7 +18,6 @@ function SearchBar(props){
                 setDispBrand(element.brand);
                 setDispType(element.type);
                 found = true;
-                break;
             }   
         }
         if(!found){
@@ -33,39 +32,38 @@ function SearchBar(props){
     }
 
     return(
-        <div>
-            <h2>Search an Item</h2>
-            <form>
+        <div className="container">
+            <div className="row">
+                <h2>Search an Item</h2>
+            </div>
+            <div className="row">
                 <label>Name: </label>
                 <input 
+                className="form-control"
                 id="name-field" 
                 type="text" 
                 value={name} 
                 onChange={(e) => setName(e.target.value)}/>
-                <br></br>
-
-                
-
-                <button type="button" onClick={onButtonPressed}>Search</button>
-            </form>
-            <table border="1">
-                <thead> 
-                    <tr>
-                        <td>Name</td>
-                        <td>Price</td>
-                        <td>Brand</td>
-                        <td>Type</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{dispName}</td>
-                        <td>{dispPrice}</td>
-                        <td>{dispBrand}</td>
-                        <td>{dispType}</td>
-                    </tr>
-                </tbody>
-            </table>
+            </div>
+            <div className="row mt-3">
+                <div className="col-5"></div>
+                <button type="button" className="col-2 btn btn-primary" onClick={onButtonPressed}>Search</button>
+            </div>
+            
+            <div className="row">
+                <div className="col">
+                    <p className=''>Name: {dispName}</p>
+                </div>
+                <div className="col">
+                    <p className=''>price: {dispPrice}</p>
+                    </div>
+                <div className="col">
+                    <p className=''>type: {dispType}</p>
+                    </div>
+                <div className="col">
+                    <p className=''>brand: {dispBrand}</p>
+                </div>
+            </div>
         </div>
     );
 }

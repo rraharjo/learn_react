@@ -3,7 +3,11 @@ import './App.css';
 import SearchBar from "./SearchBar.js";
 import ItemBar from "./AddItemBar.js";
 import DisplayData from './DataDisplay.js';
+import styled from "styled-components";
 
+const Title = styled.h1
+`color: ${(props) => (props.color ? props.color : "green")};
+font-style: "italic"`;
 function App() {
   const [filter, setFilters] = useState({});
   const [data, setData] = useState({number: 0, items: []})
@@ -22,10 +26,19 @@ function App() {
     //console.log(data);
   }
   return (
-    <div className='App'>
-      <SearchBar updateState = {updateFilters} data = {data}/>
-      <ItemBar addItem = {addData}/>
-      <DisplayData item = {data["items"]}/>
+    <div className='container'>
+      <div className='row mt-3'>
+        <Title>Inventory</Title>
+      </div>
+      <div className='row mt-3'>
+        <SearchBar updateState = {updateFilters} data = {data}/>
+      </div>
+      <div className='row mt-3'>
+        <ItemBar addItem = {addData}/>
+      </div>
+      <div className='row mt-3'>
+        <DisplayData item = {data["items"]}/>
+      </div>  
     </div>
   );
 }
