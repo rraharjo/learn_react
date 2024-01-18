@@ -13,14 +13,24 @@ function App() {
   const [filter, setFilters] = useState([]);
   const [data, setData] = useState({number: 0, items: []})
   //item props: name, price -> num, type, brand
-
-  const updateFilters = (name) => {
+  const updateFilters = (filter) => {//filter is an obj {} --> name, price, type, brand
     const items = data["items"];
     let FilteredItems = [];
+    console.log(filter);
     for (let x = 0 ; x < items.length ; x++){
-      if (items[x].name === name){
-        FilteredItems.push(items[x]);
+      if (filter.name !== '' && filter.name !== items[x].name){
+        continue;
       }
+      if (filter.price !== '' && filter.price !== items[x].price){
+        continue;
+      }
+      if (filter.type !== '' && filter.type !== items[x].type){
+        continue;
+      }
+      if (filter.brand !== '' && filter.brand !== items[x].brand){
+        continue;
+      }
+      FilteredItems.push(items[x]);
     }
     setFilters(FilteredItems);
   };
