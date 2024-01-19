@@ -5,6 +5,7 @@ function ItemBar(props){
     const [maxPrice, setMaxPrice] = useState(0);
     const [type, setType] = useState("");
     const [brand, setBrand] = useState("");
+    const [msg, setMsg] = useState("")
 
     const onButtonPressed = () => {
         props.addItem({
@@ -13,6 +14,7 @@ function ItemBar(props){
             type: type,
             brand: brand,
         });
+        setMsg(name + " added");
         setName("");
         setMaxPrice(0);
         setType("");
@@ -69,8 +71,10 @@ function ItemBar(props){
             </div>
             <div className="row mt-3">
                 <div className="col-5"></div>
-                    <button type="button" className="btn btn-secondary col-2" onClick={onButtonPressed}>Add</button>
-                
+                <button type="button" className="btn btn-secondary col-2" onClick={onButtonPressed}>Add</button>   
+            </div>
+            <div className="row mt-3">
+                <h4>{msg}</h4>
             </div>
         </div>
     );
