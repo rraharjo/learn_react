@@ -11,16 +11,14 @@ font-style: "italic"`;
 
 function App() {
   const [filter, setFilters] = useState([]);
-  const [data, setData] = useState({items: []})
+  const [data, setData] = useState({items: []});
+  const [filterDisplay, setFilterDisplay] = useState([]);
   //item props: name, price -> num, type, brand
   const updateFilters = (filter) => {//filter is an obj {} --> name, price, type, brand
-
     fetch("http://localhost:3000/items")
     .then((response) => response.json())
     .then((datas) => setData({items: datas}));
-    
     const items = data["items"];
-
     let FilteredItems = [];
     for (let x = 0 ; x < items.length ; x++){
       if (filter.name !== '' && filter.name !== items[x].name){
@@ -39,10 +37,9 @@ function App() {
     }
     setFilters(FilteredItems);
   };
-
   const addData = (item) => {
     let tempItems = data["items"];
-    item.id = tempItems.length;
+    item.id = tempItems.length + "";
     console.log(tempItems);
     const jsonItem = {
       method: "POST",
@@ -55,16 +52,32 @@ function App() {
     fetch("http://localhost:3000/items", jsonItem)
     .then((response) => response.json());
   }
+
+  const updateFilterDisplay = (filters) =>{
+    updateFilters(filters);
+    setFilterDisplay(filter);
+  }
+
+  const deleteItem = (filters) => {
+    updateFilters(filters);
+    console.log(filter);
+    for (let x = 0 ; x < filter.length ; x++){
+      const id = filter[x].id;
+      fetch('http://localhost:3000/items/' + id, {method: "DELETE"})
+      //.then((response) => console.log(response));
+    }
+
+  }
   return (
     <div className='container'>
       <div className='row mt-3'>
         <Title color='blue'>Inventory</Title>
       </div>
       <div className='row mt-3'>
-        <SearchBar filter = {updateFilters}/>
+        <SearchBar disp = {updateFilterDisplay} delete = {deleteItem}/>
       </div>
       <div className='row mt-3'>
-        <DisplayFilteredData items = {filter}/>
+        <DisplayFilteredData items = {filterDisplay}/>
       </div>
       <div className='row mt-3'>
         <ItemBar addItem = {addData}/>

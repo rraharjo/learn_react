@@ -1,39 +1,25 @@
 {
   "items": [
     {
-      "id": "0",
-      "name": "Putin",
-      "price": "2.11",
-      "type": "President",
-      "brand": "Russia"
+    "id": "0",
+    "name": "Lana",
+    "price": 0,
+    "type": "Actress",
+    "brand": "US"
     },
     {
-      "id": "1",
-      "name": "Biden",
-      "price": "1122",
-      "type": "President",
-      "brand": "US"
+    "id": "1",
+    "name": "Elfie",
+    "price": 0,
+    "type": "Actress",
+    "brand": "Russia"
     },
     {
-      "id": "2",
-      "name": "Obama",
-      "price": "123",
-      "type": "President",
-      "brand": "US"
-    },
-    {
-      "id": "3",
-      "name": "Elfie",
-      "price": "231",
-      "type": "Actress",
-      "brand": "Russia"
-    },
-    {
-      "id": 4,
-      "name": "Lana",
-      "price": 0,
-      "type": "Actress",
-      "brand": "US"
+    "id": "2",
+    "name": "Biden",
+    "price": 0,
+    "type": "President",
+    "brand": "US"
     }
   ]
 }

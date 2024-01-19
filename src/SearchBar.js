@@ -6,10 +6,13 @@ function SearchBar(props){
     const [type, setType] = useState("");
     const [brand, setBrand] = useState("");
 
-    const returnFilter = () =>{
-        props.filter({name, price, type, brand});
+    const display = () =>{
+        props.disp({name, price, type, brand});
     }
 
+    const deleteItem = () => {
+        props.delete({name, price, type, brand})
+    }
     return(
         <div className="container">
             <div className="row">
@@ -54,8 +57,10 @@ function SearchBar(props){
                 </div>
             </div>
             <div className="row mt-3">
-                <div className="col-5"></div>
-                <button type="button" className="col-2 btn btn-primary" onClick={returnFilter}>Search</button>
+                <div className="col-2"></div>
+                <button type="button" className="col-3 btn btn-primary" onClick={display}>Search</button>
+                <div className="col-2"></div>
+                <button type="button" className="col-3 btn btn-primary" onClick={deleteItem}>Delete</button>
             </div>
         </div>
     );
