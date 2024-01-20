@@ -11,36 +11,36 @@ font-style: "italic"`;
 
 function App() {
   const [filter, setFilters] = useState([]);
-  const [data, setData] = useState({items: []});
-  const [filterDisplay, setFilterDisplay] = useState([]);
+  //const [data, setData] = useState({items: []});
   //item props: name, price -> num, type, brand
+
   const updateFilters = (filter) => {//filter is an obj {} --> name, price, type, brand
+    const filterItems = (items, filter) => {
+      let FilteredItems = [];
+      for (let x = 0 ; x < items.length ; x++){
+        if (filter.name !== '' && filter.name !== items[x].name){
+          continue;
+        }
+        if (filter.price !== '' && filter.price !== items[x].price){
+          continue;
+        }
+        if (filter.type !== '' && filter.type !== items[x].type){
+          continue;
+        }
+        if (filter.brand !== '' && filter.brand !== items[x].brand){
+          continue;
+        }
+        FilteredItems.push(items[x]);
+      }
+      return FilteredItems;
+    }
     fetch("http://localhost:3000/items")
     .then((response) => response.json())
-    .then((datas) => setData({items: datas}));
-    const items = data["items"];
-    let FilteredItems = [];
-    for (let x = 0 ; x < items.length ; x++){
-      if (filter.name !== '' && filter.name !== items[x].name){
-        continue;
-      }
-      if (filter.price !== '' && filter.price !== items[x].price){
-        continue;
-      }
-      if (filter.type !== '' && filter.type !== items[x].type){
-        continue;
-      }
-      if (filter.brand !== '' && filter.brand !== items[x].brand){
-        continue;
-      }
-      FilteredItems.push(items[x]);
-    }
-    setFilters(FilteredItems);
+    .then((data) => filterItems(data, filter))
+    .then((filteredItems) => setFilters(filteredItems));
   };
+
   const addData = (item) => {
-    let tempItems = data["items"];
-    item.id = tempItems.length + "";
-    console.log(tempItems);
     const jsonItem = {
       method: "POST",
       headers: {
@@ -53,20 +53,9 @@ function App() {
     .then((response) => response.json());
   }
 
-  const updateFilterDisplay = (filters) =>{
-    updateFilters(filters);
-    setFilterDisplay(filter);
-  }
-
   const deleteItem = (filters) => {
-    updateFilters(filters);
-    console.log(filter);
-    for (let x = 0 ; x < filter.length ; x++){
-      const id = filter[x].id;
-      fetch('http://localhost:3000/items/' + id, {method: "DELETE"})
-      //.then((response) => console.log(response));
-    }
-
+    //needs to be fixed
+    return
   }
   return (
     <div className='container'>
@@ -74,10 +63,10 @@ function App() {
         <Title color='blue'>Inventory</Title>
       </div>
       <div className='row mt-3'>
-        <SearchBar disp = {updateFilterDisplay} delete = {deleteItem}/>
+        <SearchBar disp = {updateFilters} delete = {deleteItem}/>
       </div>
       <div className='row mt-3'>
-        <DisplayFilteredData items = {filterDisplay}/>
+        <DisplayFilteredData items = {filter}/>
       </div>
       <div className='row mt-3'>
         <ItemBar addItem = {addData}/>

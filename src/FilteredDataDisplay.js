@@ -5,7 +5,6 @@ function DisplayFilteredData(props){
     const displayFiltered = (item) =>{
         return (
             <tr className='row'>
-                <th className='col'>{item["id"]}</th>
                 <th className='col'>{item["name"]}</th>
                 <th className='col'>{item["price"]}</th>
                 <th className='col'>{item["type"]}</th>
@@ -20,7 +19,6 @@ function DisplayFilteredData(props){
             <Table hover>
                 <thead>
                     <tr className='row'>
-                        <th className='col'>ID</th>
                         <th className='col'>Name</th>
                         <th className='col'>Price</th>
                         <th className='col'>Type</th>
