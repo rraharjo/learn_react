@@ -13,6 +13,7 @@ function SearchBar(props){
     const deleteItem = () => {
         props.delete({name, price, type, brand})
     }
+    
     return(
         <div className="container">
             <div className="row">

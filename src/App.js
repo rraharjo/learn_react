@@ -22,7 +22,7 @@ function App() {
     .then(() => console.log("mounted"));
   }, [newItem]);
 
-  const updateFilters = (filter) => {//filter is an obj {} --> name, price, type, brand
+  const getFilters = (filter) => {//filter is an obj {} --> name, price, type, brand
     let items = data["items"];
     let FilteredItems = [];
     for (let x = 0 ; x < items.length ; x++){
@@ -40,7 +40,7 @@ function App() {
       }
       FilteredItems.push(items[x]);
     }
-    setFilters(FilteredItems);
+    return FilteredItems;
   };
 
   const addData = (item) => {
@@ -55,9 +55,31 @@ function App() {
     .then(() => setNewItem(!newItem));
   }
 
+  const updateFilters = (filters) =>{
+    const promise = new Promise((resolve, reject) => {
+      resolve(getFilters(filters));
+    });
+
+    promise.then((items) => setFilters(items));
+  }
+
   const deleteItem = (filters) => {
-    //needs to be fixed
-    return
+    const promise = new Promise((resolve, reject) => {
+      resolve(getFilters(filters));
+    })
+    const endpoint = "http://localhost:3000/items/";
+    const request = {
+      method: "DELETE"
+    }
+    const deleteItems = (items) => {
+      for (let index = 0 ; index < items.length ; index++){
+        fetch(endpoint + items[index].id, request)
+        .then(() => setNewItem(!newItem));
+      }
+      return "done";
+    }
+    promise
+    .then((items) => deleteItems(items));
   }
   return (
     <div className='container'>
