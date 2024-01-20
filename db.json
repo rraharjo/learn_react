@@ -13,6 +13,48 @@
       "price": 0,
       "type": "Actress",
       "brand": "Russia"
+    },
+    {
+      "id": "74d8",
+      "name": "Elfie",
+      "price": 0,
+      "type": "Actress",
+      "brand": "Russia"
+    },
+    {
+      "id": "d406",
+      "name": "Putin",
+      "price": 0,
+      "type": "Actress",
+      "brand": "Russia"
+    },
+    {
+      "id": "dbb5",
+      "name": "Zelensky",
+      "price": 0,
+      "type": "President",
+      "brand": "Ukraine"
+    },
+    {
+      "id": "6645",
+      "name": "Macron",
+      "price": 0,
+      "type": "President",
+      "brand": "France"
+    },
+    {
+      "id": "fb3b",
+      "name": "a",
+      "price": 0,
+      "type": "",
+      "brand": ""
+    },
+    {
+      "id": "06fd",
+      "name": "Zuck",
+      "price": 0,
+      "type": "billionaire",
+      "brand": "US"
     }
   ]
 }

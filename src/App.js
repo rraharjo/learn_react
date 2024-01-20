@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import SearchBar from "./SearchBar.js";
 import ItemBar from "./AddItemBar.js";
@@ -11,33 +11,36 @@ font-style: "italic"`;
 
 function App() {
   const [filter, setFilters] = useState([]);
-  //const [data, setData] = useState({items: []});
+  const [data, setData] = useState({items: []});
+  const [newItem, setNewItem] = useState(false);
   //item props: name, price -> num, type, brand
 
-  const updateFilters = (filter) => {//filter is an obj {} --> name, price, type, brand
-    const filterItems = (items, filter) => {
-      let FilteredItems = [];
-      for (let x = 0 ; x < items.length ; x++){
-        if (filter.name !== '' && filter.name !== items[x].name){
-          continue;
-        }
-        if (filter.price !== '' && filter.price !== items[x].price){
-          continue;
-        }
-        if (filter.type !== '' && filter.type !== items[x].type){
-          continue;
-        }
-        if (filter.brand !== '' && filter.brand !== items[x].brand){
-          continue;
-        }
-        FilteredItems.push(items[x]);
-      }
-      return FilteredItems;
-    }
+  useEffect(() => {
     fetch("http://localhost:3000/items")
     .then((response) => response.json())
-    .then((data) => filterItems(data, filter))
-    .then((filteredItems) => setFilters(filteredItems));
+    .then((items) => setData({items: items}))
+    .then(() => console.log("mounted"));
+  }, [newItem]);
+
+  const updateFilters = (filter) => {//filter is an obj {} --> name, price, type, brand
+    let items = data["items"];
+    let FilteredItems = [];
+    for (let x = 0 ; x < items.length ; x++){
+      if (filter.name !== '' && filter.name !== items[x].name){
+        continue;
+      }
+      if (filter.price !== '' && filter.price !== items[x].price){
+        continue;
+      }
+      if (filter.type !== '' && filter.type !== items[x].type){
+        continue;
+      }
+      if (filter.brand !== '' && filter.brand !== items[x].brand){
+        continue;
+      }
+      FilteredItems.push(items[x]);
+    }
+    setFilters(FilteredItems);
   };
 
   const addData = (item) => {
@@ -48,9 +51,8 @@ function App() {
       },
       body: JSON.stringify(item)
     }
-    
     fetch("http://localhost:3000/items", jsonItem)
-    .then((response) => response.json());
+    .then(() => setNewItem(!newItem));
   }
 
   const deleteItem = (filters) => {
